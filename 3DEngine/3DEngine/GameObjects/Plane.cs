@@ -10,7 +10,7 @@ namespace _3DEngine.GameObjects
     {
         public Plane()
         {
-            
+            modelName = "Plane";
         }
         public override void Update(float elapsed)
         {

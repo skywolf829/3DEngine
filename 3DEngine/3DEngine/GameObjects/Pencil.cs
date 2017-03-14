@@ -10,7 +10,7 @@ namespace _3DEngine.GameObjects
     {
         public Pencil()
         {
-            
+            modelName = "Pencil";
         }
         public override void Update(float elapsed)
         {
