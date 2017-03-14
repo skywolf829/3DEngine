@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using _3DEngine.Physics;
 
 namespace _3DEngine.GameObjects
 {
@@ -15,6 +16,10 @@ namespace _3DEngine.GameObjects
 
         public Vector3 focusLocation { get; set; }
 
+        public Camera()
+        {
+            transform = new Transform(this);
+        }
         public Matrix ViewMatrix
         {
             get

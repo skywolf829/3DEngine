@@ -12,8 +12,8 @@ namespace _3DEngine.GameObjects
 {
     public abstract class GameObject
     {
-        public Transform transform { get; private set; }
-        public Rigidbody rigidbody { get; private set; }
+        public Transform transform { get; protected set; }
+        public Rigidbody rigidbody { get; protected set; }
         public Model model { get; private set; }
 
         public String name, tag;
