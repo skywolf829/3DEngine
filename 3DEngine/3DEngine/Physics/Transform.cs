@@ -3,12 +3,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _3DEngine.GameObjects;
 using Microsoft.Xna.Framework;
 
 namespace _3DEngine.Physics
 {
     public class Transform
     {
+        public GameObject gameObject;
+        public Vector3 eulerAngles;
+        private Matrix eulertMatrix;
+        private bool EulerMatrixUpToDate = false;
+
+        public Transform (GameObject g)
+        {
+            gameObject = g;
+        }
+
+
+        public Vector3 up
+        {
+            get
+            {
+                Vector3 result = new Vector3(0, 0, 1);
+
+                return result;
+            }
+        }
+        public Vector3 down
+        {
+            get;
+        }
+        public Vector3 left
+        {
+            get;
+        }
+        public Vector3 right
+        {
+            get;
+        }
+        public Vector3 forward
+        {
+            get;
+        }
+        public Vector3 back
+        {
+            get;
+        }
+        public void updateEulerMatrix()
+        {
+            eulertMatrix = eulerRotationMatrix(eulerAngles);
+            EulerMatrixUpToDate = true;
+        }
         public Matrix eulerRotationMatrix(Vector3 eulerAngles)
         {
             //euler.X = alpha, euler.Y = beta, euler.Z = gamme
