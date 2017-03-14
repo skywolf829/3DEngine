@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _3DEngine.GameObjects
+namespace _3DEngine.Physics
 {
-    class Plane : GameObject
+    class Transform
     {
-
-
     }
 }
