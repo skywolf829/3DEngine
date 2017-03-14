@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace _3DEngine.GameObjects
 {
-    class Pencil
+    class Pencil : GameObject
     {
+        public Pencil()
+        {
+            
+        }
+        public override void Update(float elapsed)
+        {
+
+        }
     }
 }

@@ -8,7 +8,13 @@ namespace _3DEngine.GameObjects
 {
     class Plane : GameObject
     {
+        public Plane()
+        {
+            
+        }
+        public override void Update(float elapsed)
+        {
 
-
+        }
     }
 }

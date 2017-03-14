@@ -44,7 +44,7 @@
     <Compile Include="GameObjects\Plane.cs" />
     <Compile Include="Physics\Rigidbody.cs" />
     <Compile Include="Physics\Transform.cs" />
-    <Compile Include="Scenes\Game1.cs" />
+    <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

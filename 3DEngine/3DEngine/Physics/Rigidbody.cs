@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _3DEngine.Physics
 {
-    class Rigidbody
+    public class Rigidbody
     {
     }
 }
