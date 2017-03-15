@@ -1,42 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _3DEngine.GameObjects;
 using Microsoft.Xna.Framework;
+using _3DEngine.GameObjects;
 
-namespace _3DEngine.Physics
+namespace _3DEngine.Components
 {
-    public class Transform
+    public class Transform : Component
     {
         public GameObject gameObject;
         public Vector3 eulerAngles;
         public Vector3 position;
         private bool EulerMatrixUpToDate = false;
         private Matrix lastEulerMatrix;
-
-        private Matrix eulertMatrix {
-            get
-            {
-                if (!this.EulerMatrixUpToDate)
-                {
-
-                 
-                    lastEulerMatrix = eulerRotationMatrix(eulerAngles);
-                    EulerMatrixUpToDate = true;
-                }
-                return lastEulerMatrix;
-            }
-            
-
-    }
-       
-        public Transform (GameObject g)
-        {
-            gameObject = g;
-        }
-
+        public float scale = 1f;
 
         public Vector3 up
         {
@@ -66,6 +41,32 @@ namespace _3DEngine.Physics
         public Vector3 back
         {
             get;
+        }
+        private Matrix eulerMatrix {
+            get
+            {
+                if (!this.EulerMatrixUpToDate)
+                {
+
+                 
+                    lastEulerMatrix = eulerRotationMatrix(eulerAngles);
+                    EulerMatrixUpToDate = true;
+                }
+                return lastEulerMatrix;
+            }
+        }
+       
+        public Transform (GameObject g) : base(g)
+        {
+
+        }
+        public override void Initialize()
+        {
+
+        }
+        public override void Update()
+        {
+
         }
       
         public Matrix eulerRotationMatrix(Vector3 eulerAngles)

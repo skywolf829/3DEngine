@@ -7,13 +7,13 @@ using _3DEngine.Components;
 
 namespace _3DEngine.GameObjects
 {
-    class Plane : GameObject
+    public class MainCamera : GameObject
     {
-        public Plane()
+        public MainCamera()
         {
-            modelName = "Plane";
             AddComponent<Transform>();
-            AddComponent<Rigidbody>();
+            AddComponent<Camera>();
         }
+
     }
 }

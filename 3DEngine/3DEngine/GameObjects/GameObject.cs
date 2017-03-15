@@ -1,35 +1,46 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using _3DEngine.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using _3DEngine.Components;
 
 namespace _3DEngine.GameObjects
 {
-    public abstract class GameObject
+    public class GameObject
     {
-        public Transform transform { get; protected set; }
-        public Rigidbody rigidbody { get; protected set; }
+        protected List<Component> components;
         public Model model { get; private set; }
 
         public String name, tag;
 
         protected string modelName;
 
+        public GameObject()
+        {
+            components = new List<Component>();
+        }
         public virtual void Initialize()
         {
-            
+            foreach (Component c in components)
+            {
+                c.Initialize();
+            }
         }
         public virtual void Load(ContentManager content)
         {
             if(modelName != "")
                 model = content.Load<Model>(modelName);
         }
-        public abstract void Update(float elapsed);
+
+        public virtual void Update()
+        {
+            foreach(Component c in components) { c.Update(); }   
+        }
         public void Draw(Vector3 cameraPosition, Matrix view, Matrix projection)
         {
             if (model != null)
@@ -46,11 +57,11 @@ namespace _3DEngine.GameObjects
                     {
 
                         effect.EnableDefaultLighting();
-                        effect.World = Matrix.CreateScale(transform.scale) *
-                                       Matrix.CreateFromYawPitchRoll(transform.CurrentEulerRot.X,
-                                           transform.CurrentEulerRot.Y,
-                                           transform.CurrentEulerRot.Z) *
-                                       Matrix.CreateTranslation(transform.CurrentPosition);
+                        effect.World = Matrix.CreateScale(GetComponent<Transform>().scale) *
+                                       Matrix.CreateFromYawPitchRoll(GetComponent<Transform>().eulerAngles.X,
+                                           GetComponent<Transform>().eulerAngles.Y,
+                                           GetComponent<Transform>().eulerAngles.Z) *
+                                       Matrix.CreateTranslation(GetComponent<Transform>().position);
                         effect.View = view;
                         effect.Projection = projection;
                     }
@@ -58,6 +69,41 @@ namespace _3DEngine.GameObjects
                     mesh.Draw();
                 }
             }
+        }
+
+        public T GetComponent<T>() where T : Component
+        {
+            Component component = null;
+            foreach (Component c in components)
+            {
+                if (c.GetType().Equals(typeof(T)))
+                {
+                    component = c;
+                    break;
+                }
+            }
+            return (T)component;
+        }
+
+        public T AddComponent<T>() where T : Component
+        {
+            Component c = (T)Activator.CreateInstance(typeof(T), new object[] {this});
+            components.Add(c);
+            return (T)c;
+        }
+
+        public static GameObject FindObjectWithName(String s)
+        {
+            GameObject g = null;
+            foreach (GameObject obj in Scene.Instance.gameObjects)
+            {
+                if (obj.name.Equals(s))
+                {
+                    g = obj;
+                    break;
+                }
+            }
+            return g;
         }
     }
 }

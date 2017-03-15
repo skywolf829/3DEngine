@@ -1,14 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using _3DEngine.GameObjects;
 
-namespace _3DEngine.Physics
+namespace _3DEngine.Components
 {
-    public class Rigidbody
+    public class Rigidbody : Component
     {
         public GameObject gameObject;
         public Vector3 velocity;
@@ -18,12 +13,16 @@ namespace _3DEngine.Physics
         public float mass;
         public float gravity = 9.8f;
 
-        public Rigidbody(GameObject obj)
+        public Rigidbody(GameObject obj) : base(obj)
         {
-            gameObject = obj;
+
         }
 
-        public void Update(float elapsed)
+        public override void Initialize()
+        {
+            
+        }
+        public override void Update()
         {
             
         }

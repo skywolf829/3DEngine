@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using _3DEngine.Components;
 using _3DEngine.GameObjects;
 
 namespace _3DEngine
@@ -28,20 +29,23 @@ namespace _3DEngine
 
         GraphicsDeviceManager graphics;
         public List<GameObject> gameObjects;
-        public Camera mainCamera;
+        public GameObject mainCamera;
+        public static float elapsed;
 
         public Scene()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            gameObjects = new List<GameObject>();
         }
         protected override void Initialize()
         {
             base.Initialize();
-            mainCamera = new Camera();
-            gameObjects = new List<GameObject>();
+            mainCamera = new MainCamera();
             gameObjects.Add(new Pencil());
             gameObjects.Add(new GameObjects.Plane());
+            gameObjects.Add(mainCamera);
             InitializeObjects();
         }
 
@@ -67,23 +71,21 @@ namespace _3DEngine
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            elapsed = (float) gameTime.ElapsedGameTime.TotalSeconds;
             foreach (GameObject g in gameObjects)
             {
-                g.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+                g.Update();
             }
         }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        
         protected override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
             GraphicsDevice.Clear(Color.CornflowerBlue);
             foreach (GameObject g in gameObjects)
             {
-                g.Draw(mainCamera.transform.position, mainCamera.ViewMatrix, mainCamera.ProjectionMatrix);
+                g.Draw(mainCamera.GetComponent<Transform>().position, mainCamera.GetComponent<Camera>().ViewMatrix, 
+                    mainCamera.GetComponent<Camera>().ProjectionMatrix);
             }
         }
     }
