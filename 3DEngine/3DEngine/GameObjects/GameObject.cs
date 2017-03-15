@@ -14,7 +14,7 @@ namespace _3DEngine.GameObjects
     public class GameObject
     {
         protected List<Component> components;
-        public Model model { get; private set; }
+        public Model model { get; protected set; }
 
         public String name, tag;
 
@@ -33,15 +33,18 @@ namespace _3DEngine.GameObjects
         }
         public virtual void Load(ContentManager content)
         {
-            if(modelName != "")
+            if (modelName != null)
+            {
                 model = content.Load<Model>(modelName);
+                Console.WriteLine("Loaded model for " + name);
+            }
         }
 
         public virtual void Update()
         {
             foreach(Component c in components) { c.Update(); }   
         }
-        public void Draw(Vector3 cameraPosition, Matrix view, Matrix projection)
+        public void Draw(Matrix view, Matrix projection)
         {
             if (model != null)
             {
@@ -57,13 +60,17 @@ namespace _3DEngine.GameObjects
                     {
 
                         effect.EnableDefaultLighting();
+                        effect.PreferPerPixelLighting = true;
+                        
                         effect.World = Matrix.CreateScale(GetComponent<Transform>().scale) *
                                        Matrix.CreateFromYawPitchRoll(GetComponent<Transform>().eulerAngles.X,
                                            GetComponent<Transform>().eulerAngles.Y,
                                            GetComponent<Transform>().eulerAngles.Z) *
                                        Matrix.CreateTranslation(GetComponent<Transform>().position);
+                                       
                         effect.View = view;
                         effect.Projection = projection;
+                        
                     }
                     // Draw the mesh, using the effects set above.
                     mesh.Draw();
@@ -89,13 +96,14 @@ namespace _3DEngine.GameObjects
         {
             Component c = (T)Activator.CreateInstance(typeof(T), new object[] {this});
             components.Add(c);
+            c.Initialize();
             return (T)c;
         }
 
         public static GameObject FindObjectWithName(String s)
         {
             GameObject g = null;
-            foreach (GameObject obj in Scene.Instance.gameObjects)
+            foreach (GameObject obj in Program.Game.gameObjects)
             {
                 if (obj.name.Equals(s))
                 {

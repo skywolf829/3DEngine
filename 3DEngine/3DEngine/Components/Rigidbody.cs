@@ -5,7 +5,6 @@ namespace _3DEngine.Components
 {
     public class Rigidbody : Component
     {
-        public GameObject gameObject;
         public Vector3 velocity;
         public Vector3 angularVelocity;
         public Vector3 inertialTensor;

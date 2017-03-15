@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using _3DEngine.Components;
 using _3DEngine.GameObjects;
+using _3DEngine.Scripts;
 
 namespace _3DEngine
 {
@@ -30,7 +32,7 @@ namespace _3DEngine
         GraphicsDeviceManager graphics;
         public List<GameObject> gameObjects;
         public GameObject mainCamera;
-        public static float elapsed;
+        public float elapsed;
 
         public Scene()
         {
@@ -41,12 +43,14 @@ namespace _3DEngine
         }
         protected override void Initialize()
         {
-            base.Initialize();
+            this.IsMouseVisible = true;
+
             mainCamera = new MainCamera();
             gameObjects.Add(new Pencil());
             gameObjects.Add(new GameObjects.Plane());
             gameObjects.Add(mainCamera);
             InitializeObjects();
+            base.Initialize();
         }
 
         private void InitializeObjects()
@@ -55,6 +59,17 @@ namespace _3DEngine
             {
                 g.Initialize();
             }
+            ScriptedStarts();
+        }
+
+        private void ScriptedStarts()
+        {
+            mainCamera.AddComponent<CameraMovement>();
+            mainCamera.GetComponent<Transform>().position = new Vector3(0, 0, 0);
+            GameObject.FindObjectWithName("Pencil").GetComponent<Transform>().position.Z += .75f;
+            GameObject.FindObjectWithName("Pencil").GetComponent<Transform>().eulerAngles = new Vector3(0, 0, (float)(Math.PI / 2.0f));
+
+            GameObject.FindObjectWithName("Plane").GetComponent<Transform>().scale = 100;
         }
         protected override void LoadContent()
         {
@@ -80,13 +95,16 @@ namespace _3DEngine
         
         protected override void Draw(GameTime gameTime)
         {
-            base.Draw(gameTime);
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             GraphicsDevice.Clear(Color.CornflowerBlue);
             foreach (GameObject g in gameObjects)
             {
-                g.Draw(mainCamera.GetComponent<Transform>().position, mainCamera.GetComponent<Camera>().ViewMatrix, 
+                g.Draw(mainCamera.GetComponent<Camera>().ViewMatrix, 
                     mainCamera.GetComponent<Camera>().ProjectionMatrix);
             }
+
+            base.Draw(gameTime);
         }
     }
 }

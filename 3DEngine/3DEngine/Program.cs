@@ -8,14 +8,13 @@ namespace _3DEngine
     /// </summary>
     public static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        public static Scene Game { get; private set; }
+        
         [STAThread]
         static void Main()
         {
-            using (var game = new Scene())
-                game.Run();
+            using (Game = new Scene())
+                Game.Run();
         }
     }
 #endif

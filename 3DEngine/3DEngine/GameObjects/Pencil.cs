@@ -12,6 +12,7 @@ namespace _3DEngine.GameObjects
     {
         public Pencil()
         {
+            name = "Pencil";
             modelName = "Pencil";
             AddComponent<Transform>();
             AddComponent<Rigidbody>();

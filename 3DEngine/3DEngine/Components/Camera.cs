@@ -18,33 +18,30 @@ namespace _3DEngine.GameObjects
 
         public Camera(GameObject g) : base(g)
         {
-            nearClipping = 1;
+            nearClipping = 1f;
             farClipping = 10000;
         }
         public Matrix ViewMatrix
         {
             get
             {
-                if (Scene.Instance.GraphicsDevice != null)
-                {
-
-                    return Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),
-                        Scene.Instance.GraphicsDevice.Viewport.AspectRatio,
-                        nearClipping, farClipping);
-                }
-                else return Matrix.Identity;
+                return Matrix.CreateLookAt(gameObject.GetComponent<Transform>().position,
+                focusLocation, gameObject.GetComponent<Transform>().up);
             }
         }
 
         public Matrix ProjectionMatrix
         {
-            get { return Matrix.CreateLookAt(gameObject.GetComponent<Transform>().position, 
-                focusLocation, gameObject.GetComponent<Transform>().up); }
+            get {
+                return Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),
+                        Program.Game.GraphicsDevice.Viewport.AspectRatio,
+                        nearClipping, farClipping);
+            }
         }
 
         public override void Update()
         {
-
+            base.Update();
         }
     }
 }

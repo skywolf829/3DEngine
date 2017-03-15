@@ -6,7 +6,6 @@ namespace _3DEngine.Components
 {
     public class Transform : Component
     {
-        public GameObject gameObject;
         public Vector3 eulerAngles;
         public Vector3 position;
         private bool EulerMatrixUpToDate = false;
@@ -24,23 +23,48 @@ namespace _3DEngine.Components
         }
         public Vector3 down
         {
-            get;
+            get
+            {
+                Vector3 result = new Vector3(0, 0, -1);
+
+                return result;
+            }
         }
         public Vector3 left
         {
-            get;
+            get
+            {
+                Vector3 result = new Vector3(-1, 0, 0);
+
+                return result;
+            }
         }
         public Vector3 right
         {
-            get;
+            get
+            {
+                Vector3 result = new Vector3(1, 0, 0);
+
+                return result;
+            }
         }
         public Vector3 forward
         {
-            get;
+            get
+            {
+                Vector3 result = new Vector3(0, 1, 0);
+
+                return result;
+            }
         }
         public Vector3 back
         {
-            get;
+            get
+            {
+                Vector3 result = new Vector3(0, -1, 0);
+
+                return result;
+            }
         }
         private Matrix eulerMatrix {
             get

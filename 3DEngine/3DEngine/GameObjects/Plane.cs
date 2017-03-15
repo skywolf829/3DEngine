@@ -11,9 +11,15 @@ namespace _3DEngine.GameObjects
     {
         public Plane()
         {
+            name = "Plane";
             modelName = "Plane";
             AddComponent<Transform>();
             AddComponent<Rigidbody>();
+        }
+
+        public override void Update()
+        {
+            base.Update();
         }
     }
 }
