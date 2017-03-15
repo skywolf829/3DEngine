@@ -17,7 +17,7 @@ namespace _3DEngine.GameObjects
         }
         public override void Update(float elapsed)
         {
-
+            rigidbody.Update(elapsed);
         }
     }
 }
