@@ -12,9 +12,26 @@ namespace _3DEngine.Physics
     {
         public GameObject gameObject;
         public Vector3 eulerAngles;
-        private Matrix eulertMatrix;
+        public Vector3 position;
         private bool EulerMatrixUpToDate = false;
+        private Matrix lastEulerMatrix;
 
+        private Matrix eulertMatrix {
+            get
+            {
+                if (!this.EulerMatrixUpToDate)
+                {
+
+                 
+                    lastEulerMatrix = eulerRotationMatrix(eulerAngles);
+                    EulerMatrixUpToDate = true;
+                }
+                return lastEulerMatrix;
+            }
+            
+
+    }
+       
         public Transform (GameObject g)
         {
             gameObject = g;
@@ -50,11 +67,7 @@ namespace _3DEngine.Physics
         {
             get;
         }
-        public void updateEulerMatrix()
-        {
-            eulertMatrix = eulerRotationMatrix(eulerAngles);
-            EulerMatrixUpToDate = true;
-        }
+      
         public Matrix eulerRotationMatrix(Vector3 eulerAngles)
         {
             //euler.X = alpha, euler.Y = beta, euler.Z = gamme
