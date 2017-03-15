@@ -10,9 +10,20 @@ namespace _3DEngine.GameObjects
 {
     class Pencil : GameObject
     {
-        public Pencil()
+        public Pencil() : base()
         {
-            name = "Pencil";
+            modelName = "Pencil";
+            AddComponent<Transform>();
+            AddComponent<Rigidbody>();
+        }
+        public Pencil(String n) : base(n)
+        {
+            modelName = "Pencil";
+            AddComponent<Transform>();
+            AddComponent<Rigidbody>();
+        }
+        public Pencil(String n, String t) : base(n, t)
+        {
             modelName = "Pencil";
             AddComponent<Transform>();
             AddComponent<Rigidbody>();

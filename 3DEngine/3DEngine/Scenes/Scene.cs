@@ -45,9 +45,9 @@ namespace _3DEngine
         {
             this.IsMouseVisible = true;
 
-            mainCamera = new MainCamera();
-            gameObjects.Add(new Pencil());
-            gameObjects.Add(new GameObjects.Plane());
+            mainCamera = new MainCamera("MainCamera", "MainCamera");
+            gameObjects.Add(new Pencil("Pencil1", "Pencil"));
+            gameObjects.Add(new GameObjects.Plane("Plane", "Plane"));
             gameObjects.Add(mainCamera);
             InitializeObjects();
             base.Initialize();
@@ -66,10 +66,10 @@ namespace _3DEngine
         {
             mainCamera.AddComponent<CameraMovement>();
             mainCamera.GetComponent<Transform>().position = new Vector3(0, 0, 0);
-            GameObject.FindObjectWithName("Pencil").GetComponent<Transform>().position.Z += .75f;
-            GameObject.FindObjectWithName("Pencil").GetComponent<Transform>().eulerAngles = new Vector3(0, 0, (float)(Math.PI / 2.0f));
+            GameObject.FindGameObjectWithName("Pencil").GetComponent<Transform>().position.Z += .75f;
+            GameObject.FindGameObjectWithName("Pencil").GetComponent<Transform>().eulerAngles = new Vector3(0, 0, (float)(Math.PI / 2.0f));
 
-            GameObject.FindObjectWithName("Plane").GetComponent<Transform>().scale = 100;
+            GameObject.FindGameObjectWithName("Plane").GetComponent<Transform>().scale = 100;
         }
         protected override void LoadContent()
         {

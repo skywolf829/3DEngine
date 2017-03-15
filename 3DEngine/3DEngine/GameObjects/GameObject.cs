@@ -24,6 +24,18 @@ namespace _3DEngine.GameObjects
         {
             components = new List<Component>();
         }
+
+        public GameObject(String n)
+        {
+            name = n;
+            components = new List<Component>();
+        }
+        public GameObject(String n, String t)
+        {
+            name = n;
+            tag = t;
+            components = new List<Component>();
+        }
         public virtual void Initialize()
         {
             foreach (Component c in components)
@@ -100,7 +112,7 @@ namespace _3DEngine.GameObjects
             return (T)c;
         }
 
-        public static GameObject FindObjectWithName(String s)
+        public static GameObject FindGameObjectWithName(String s)
         {
             GameObject g = null;
             foreach (GameObject obj in Program.Game.gameObjects)
@@ -112,6 +124,19 @@ namespace _3DEngine.GameObjects
                 }
             }
             return g;
+        }
+
+        public static GameObject[] FindGameObjectsWithTag(String t)
+        {
+            List<GameObject> gObjects = new List<GameObject>();
+            foreach (GameObject obj in Program.Game.gameObjects)
+            {
+                if (obj.tag.Equals(t))
+                {
+                    gObjects.Add(obj);
+                }
+            }
+            return gObjects.ToArray();
         }
     }
 }

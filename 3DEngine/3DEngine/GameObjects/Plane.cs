@@ -9,9 +9,20 @@ namespace _3DEngine.GameObjects
 {
     class Plane : GameObject
     {
-        public Plane()
+        public Plane() : base()
         {
-            name = "Plane";
+            modelName = "Plane";
+            AddComponent<Transform>();
+            AddComponent<Rigidbody>();
+        }
+        public Plane(String n) : base(n)
+        {
+            modelName = "Plane";
+            AddComponent<Transform>();
+            AddComponent<Rigidbody>();
+        }
+        public Plane(String n, String t) : base(n, t)
+        {
             modelName = "Plane";
             AddComponent<Transform>();
             AddComponent<Rigidbody>();
