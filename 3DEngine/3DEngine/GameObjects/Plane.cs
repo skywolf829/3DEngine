@@ -26,7 +26,7 @@ namespace _3DEngine.GameObjects
                 colors = new Color[resolution * resolution];
                 for (int i = 0; i < resolution * resolution; i++)
                 {
-                    colors[i] = Color.Yellow;
+                    colors[i] = Color.LightGoldenrodYellow;
                 }
             }
         }
@@ -92,8 +92,8 @@ namespace _3DEngine.GameObjects
         }
         public void UpdateTexture(Color c, Vector3 point)
         {
-            int row = (int)(((point.Y + 100) / 200.0f) * resolution);
-            int column = (int)(((point.X + 100) / 200.0f) * resolution);
+            int row = (int)(((point.Y - GetComponent<Transform>().position.Y + 100) / 200.0f) * resolution);
+            int column = (int)(((point.X - GetComponent<Transform>().position.X + 100) / 200.0f) * resolution);
             if (resolution * row + column < resolution * resolution)
                 colors[resolution * row + column] = c;
             texture.SetData(colors);

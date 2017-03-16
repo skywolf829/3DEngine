@@ -70,7 +70,7 @@ namespace _3DEngine
             mainCamera.AddComponent<CameraMovement>();
 
             GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().Direction = new Vector3(0, 1, 0);
-            GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().Distance = 40;
+            GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().Distance = 5;
             GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().Color = Color.Red;
 
             GameObject.FindGameObjectWithName("Pencil1").GetComponent<Transform>().position.Z += .75f;

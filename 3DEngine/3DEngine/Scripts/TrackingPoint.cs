@@ -16,15 +16,15 @@ namespace _3DEngine.Scripts
             get { return gameObject.GetComponent<Transform>().position; }
         }
 
-        private Vector3 direction;
+        private Vector3 _direction { get; set; }
         public Vector3 Direction
         {
             get
             {
-                direction.Normalize();
-                return direction;
+                _direction.Normalize();
+                return _direction;
             }
-            set { direction = value; }
+            set { _direction = value; }
         }
 
         public float Distance;
@@ -35,7 +35,6 @@ namespace _3DEngine.Scripts
         {
             get
             {
-                Direction.Normalize();
                 return Origin + (Direction * Distance);
             }
         }

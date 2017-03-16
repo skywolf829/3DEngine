@@ -10,23 +10,23 @@ namespace _3DEngine.Scripts
 {
     public class TrackingPointDrawer : Component
     {
-        private readonly GameObject[] pencils;
-        private readonly Plane plane;
+        private readonly GameObject[] _pencils;
+        private readonly Plane _plane;
         public TrackingPointDrawer(GameObject g) : base(g)
         {
-            pencils = GameObject.FindGameObjectsWithTag("Pencils");
-            plane = (Plane)GameObject.FindGameObjectWithName("Plane");
+            _pencils = GameObject.FindGameObjectsWithTag("Pencils");
+            _plane = (Plane)GameObject.FindGameObjectWithName("Plane");
         }
 
 
         public override void Update()
         {
             base.Update();
-            foreach (GameObject g in pencils)
+            foreach (GameObject g in _pencils)
             {
                 foreach (TrackingPoint tp in g.GetComponents<TrackingPoint>())
                 {
-                    plane.UpdateTexture(tp.Color, tp.Point);
+                    _plane.UpdateTexture(tp.Color, tp.Point);
                 }
             }
         }

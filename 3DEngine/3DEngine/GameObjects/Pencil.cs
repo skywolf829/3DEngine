@@ -32,5 +32,11 @@ namespace _3DEngine.GameObjects
             AddComponent<Rigidbody>();
             AddComponent<TrackingPoint>();
         }
+
+        public override void Update()
+        {
+            base.Update();
+            GetComponent<Transform>().eulerAngles.Z += 1.0f * Program.Game.elapsed;
+        }
     }
 }
