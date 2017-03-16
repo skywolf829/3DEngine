@@ -10,7 +10,7 @@ using _3DEngine.GameObjects;
 
 namespace _3DEngine.Scripts
 {
-    class CameraMovement : Component
+    public class CameraMovement : Component
     {
         private float moveSpeed = 20;
         private bool focusOnCenter = false;

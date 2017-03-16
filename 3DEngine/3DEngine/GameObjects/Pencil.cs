@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using _3DEngine.Components;
+using _3DEngine.Scripts;
 
 namespace _3DEngine.GameObjects
 {
@@ -15,18 +16,21 @@ namespace _3DEngine.GameObjects
             modelName = "Pencil";
             AddComponent<Transform>();
             AddComponent<Rigidbody>();
+            AddComponent<TrackingPoint>();
         }
         public Pencil(String n) : base(n)
         {
             modelName = "Pencil";
             AddComponent<Transform>();
             AddComponent<Rigidbody>();
+            AddComponent<TrackingPoint>();
         }
         public Pencil(String n, String t) : base(n, t)
         {
             modelName = "Pencil";
             AddComponent<Transform>();
             AddComponent<Rigidbody>();
+            AddComponent<TrackingPoint>();
         }
     }
 }

@@ -49,6 +49,9 @@ namespace _3DEngine
             gameObjects.Add(new Pencil("Pencil1", "Pencil"));
             gameObjects.Add(new GameObjects.Plane("Plane", "Plane"));
             gameObjects.Add(mainCamera);
+            GameObject empty = new GameObject("Empty", "GameLogic");
+            empty.AddComponent<TrackingPointDrawer>();
+            gameObjects.Add(empty);
             InitializeObjects();
             base.Initialize();
         }
@@ -65,9 +68,13 @@ namespace _3DEngine
         private void ScriptedStarts()
         {
             mainCamera.AddComponent<CameraMovement>();
-            mainCamera.GetComponent<Transform>().position = new Vector3(0, 0, 0);
-            GameObject.FindGameObjectWithName("Pencil").GetComponent<Transform>().position.Z += .75f;
-            GameObject.FindGameObjectWithName("Pencil").GetComponent<Transform>().eulerAngles = new Vector3(0, 0, (float)(Math.PI / 2.0f));
+
+            GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().Direction = new Vector3(0, 1, 0);
+            GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().Distance = 40;
+            GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().Color = Color.Red;
+
+            GameObject.FindGameObjectWithName("Pencil1").GetComponent<Transform>().position.Z += .75f;
+            //GameObject.FindGameObjectWithName("Pencil1").GetComponent<Transform>().eulerAngles = new Vector3(0, 0, (float)(Math.PI / 2.0f));
 
             GameObject.FindGameObjectWithName("Plane").GetComponent<Transform>().scale = 100;
         }

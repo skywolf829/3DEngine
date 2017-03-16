@@ -56,7 +56,7 @@ namespace _3DEngine.GameObjects
         {
             foreach(Component c in components) { c.Update(); }   
         }
-        public void Draw(Matrix view, Matrix projection)
+        public virtual void Draw(Matrix view, Matrix projection)
         {
             if (model != null)
             {
@@ -104,6 +104,18 @@ namespace _3DEngine.GameObjects
             return (T)component;
         }
 
+        public T[] GetComponents<T>() where T: Component
+        {
+            List<Component> components = new List<Component>();
+            foreach (Component c in components)
+            {
+                if (c.GetType().Equals(typeof(T)))
+                {
+                    components.Add(c);
+                }
+            }
+            return (T[])components.ToArray();
+        }
         public T AddComponent<T>() where T : Component
         {
             Component c = (T)Activator.CreateInstance(typeof(T), new object[] {this});
@@ -137,6 +149,13 @@ namespace _3DEngine.GameObjects
                 }
             }
             return gObjects.ToArray();
+        }
+
+        public static GameObject Instantiate(GameObject g)
+        {
+            Program.Game.gameObjects.Add(g);
+            g.Initialize();
+            return g;
         }
     }
 }
