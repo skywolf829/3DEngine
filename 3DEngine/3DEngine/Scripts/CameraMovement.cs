@@ -13,7 +13,7 @@ namespace _3DEngine.Scripts
     public class CameraMovement : Component
     {
         private float moveSpeed = 20;
-        private bool focusOnCenter = false;
+        public bool focusOnCenter = false;
         private bool lastFState = false;
 
         public CameraMovement(GameObject g) : base(g)

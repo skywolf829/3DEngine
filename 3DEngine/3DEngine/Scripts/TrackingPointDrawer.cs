@@ -14,7 +14,7 @@ namespace _3DEngine.Scripts
         private readonly Plane _plane;
         public TrackingPointDrawer(GameObject g) : base(g)
         {
-            _pencils = GameObject.FindGameObjectsWithTag("Pencils");
+            _pencils = GameObject.FindGameObjectsWithTag("Pencil");
             _plane = (Plane)GameObject.FindGameObjectWithName("Plane");
         }
 

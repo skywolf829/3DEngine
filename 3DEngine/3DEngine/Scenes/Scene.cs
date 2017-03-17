@@ -68,9 +68,10 @@ namespace _3DEngine
         private void ScriptedStarts()
         {
             mainCamera.AddComponent<CameraMovement>();
-
-            GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().Direction = new Vector3(0, 1, 0);
-            GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().Distance = 5;
+            mainCamera.GetComponent<Transform>().position += new Vector3(-20, -30, 50);
+            mainCamera.GetComponent<CameraMovement>().focusOnCenter = true;
+            GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().InitialDirection = new Vector3(-1, 0, 0);
+            GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().Distance = 21;
             GameObject.FindGameObjectWithName("Pencil1").GetComponent<TrackingPoint>().Color = Color.Red;
 
             GameObject.FindGameObjectWithName("Pencil1").GetComponent<Transform>().position.Z += .75f;

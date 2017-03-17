@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using _3DEngine.Components;
 using _3DEngine.Scripts;
 
@@ -36,7 +37,8 @@ namespace _3DEngine.GameObjects
         public override void Update()
         {
             base.Update();
-            GetComponent<Transform>().eulerAngles.Z += 1.0f * Program.Game.elapsed;
+           
+
         }
     }
 }

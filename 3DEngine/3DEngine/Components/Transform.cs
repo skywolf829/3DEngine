@@ -73,7 +73,7 @@ namespace _3DEngine.Components
                 {
 
                  
-                    lastEulerMatrix = eulerRotationMatrix(eulerAngles);
+                    lastEulerMatrix = EulerRotationMatrix(eulerAngles);
                     EulerMatrixUpToDate = true;
                 }
                 return lastEulerMatrix;
@@ -93,7 +93,7 @@ namespace _3DEngine.Components
 
         }
       
-        public Matrix eulerRotationMatrix(Vector3 eulerAngles)
+        public Matrix EulerRotationMatrix(Vector3 eulerAngles)
         {
             //euler.X = alpha, euler.Y = beta, euler.Z = gamme
             float sinAlpha = (float)Math.Sin(eulerAngles.X);
@@ -106,12 +106,40 @@ namespace _3DEngine.Components
             float cosGamma = (float)Math.Cos(eulerAngles.Z);
 
 
-            Vector4 row1 = new Vector4(cosBeta*cosGamma, cosGamma * sinAlpha * sinBeta - cosAlpha * sinGamma,cosAlpha * cosGamma * sinBeta + sinAlpha * sinGamma, 0);
-            Vector4 row2 = new Vector4(cosBeta * sinGamma, cosAlpha * cosGamma + sinAlpha * sinBeta * sinGamma, (-1f) * cosGamma * sinAlpha +cosAlpha * sinBeta * sinGamma, 0);
-            Vector4 row3 = new Vector4((-1f) * sinBeta, cosBeta * sinAlpha, cosAlpha * cosBeta, 0);
+            Vector4 row1 = new Vector4(cosBeta*cosGamma, cosGamma * sinAlpha * sinBeta - cosAlpha * sinGamma, cosAlpha * cosGamma * sinBeta + sinAlpha * sinGamma, 0);
+            Vector4 row2 = new Vector4(cosBeta * sinGamma, cosAlpha * cosGamma + sinAlpha * sinBeta * sinGamma, -cosGamma * sinAlpha +cosAlpha * sinBeta * sinGamma, 0);
+            Vector4 row3 = new Vector4(-sinBeta, cosBeta * sinAlpha, cosAlpha * cosBeta, 0);
             Vector4 row4 = new Vector4(0,0,0,1);
             Matrix result = new Matrix(row1,row2,row3,row4);
+            return Matrix.CreateFromYawPitchRoll(eulerAngles.X, eulerAngles.Y, eulerAngles.Z);
             return (result);
+        }
+        private Vector3 EulerRotationFromDirection(Vector3 dir)
+        {
+            float theta_x;
+            float theta_y;
+            float theta_z;
+
+            if (dir.X == 0)
+            {
+                theta_y = 0;
+                theta_z = 0;
+            }
+            else
+            {
+                theta_y = (float)Math.Atan(dir.Z / dir.X);
+                theta_z = (float)Math.Atan(dir.Y / dir.X);
+            }
+            if (dir.Z == 0)
+            {
+                theta_x = 0;
+            }
+            else
+            {
+                theta_x = (float)Math.Atan(dir.Y / dir.Z);
+            }
+
+            return new Vector3(theta_x, theta_y, theta_z);
         }
     }
 }

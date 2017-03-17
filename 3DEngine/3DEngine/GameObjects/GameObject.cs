@@ -106,15 +106,15 @@ namespace _3DEngine.GameObjects
 
         public T[] GetComponents<T>() where T: Component
         {
-            List<Component> components = new List<Component>();
+            List<T> componentsList = new List<T>();
             foreach (Component c in components)
             {
                 if (c.GetType().Equals(typeof(T)))
                 {
-                    components.Add(c);
+                    componentsList.Add((T)c);
                 }
             }
-            return (T[])components.ToArray();
+            return componentsList.ToArray();
         }
         public T AddComponent<T>() where T : Component
         {

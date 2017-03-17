@@ -16,11 +16,21 @@ namespace _3DEngine.Scripts
             get { return gameObject.GetComponent<Transform>().position; }
         }
 
+        private Vector3 _initialDirection;
+        public Vector3 InitialDirection
+        {
+            get { return _initialDirection; }
+            set { _direction = _initialDirection = value; }
+        }
+
         private Vector3 _direction { get; set; }
         public Vector3 Direction
         {
             get
             {
+                Matrix dir = Matrix.Multiply(gameObject.GetComponent<Transform>().EulerRotationMatrix(gameObject.GetComponent<Transform>().eulerAngles), 
+                    new Matrix(_initialDirection.X, 0, 0, 0, _initialDirection.Y, 0, 0, 0, _initialDirection.Z, 0, 0, 0, 0, 0, 0, 0));
+                _direction = new Vector3(dir.M11, dir.M21, dir.M31);
                 _direction.Normalize();
                 return _direction;
             }
